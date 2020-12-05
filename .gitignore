@@ -33,3 +33,20 @@
 
 # .vs folder
 /OF_prototype/.vs
+OF_prototype/bin/OF_prototype_debug.exp
+OF_prototype/bin/OF_prototype_debug.ilk
+OF_prototype/bin/OF_prototype_debug.pdb
+OF_prototype/obj/Win32/Debug/icon.res
+OF_prototype/obj/Win32/Debug/OF_prototype.log
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/CL.14220.write.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/CL.command.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/CL.read.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/link.command.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/link.read.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/link.write.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/OF_prototype.lastbuildstate
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/OF_prototype.write.1u.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/rc.command.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/rc.read.1.tlog
+OF_prototype/obj/Win32/Debug/OF_prototype.tlog/rc.write.1.tlog
+OF_prototype/obj/Win32/Debug/vc141.pdb

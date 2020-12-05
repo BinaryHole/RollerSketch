@@ -13,43 +13,43 @@
 		<ClCompile Include="src\ofApp.cpp">
 			<Filter>src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\BaseEngine.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\BaseEngine.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\DefaultTheme.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\DefaultTheme.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\EngineGLFW.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\EngineGLFW.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\EngineOpenGLES.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\EngineOpenGLES.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\EngineVk.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\EngineVk.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\Gui.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\Gui.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\ImHelpers.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\ImHelpers.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\ofxImGuiLoggerChannel.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\ofxImGuiLoggerChannel.cpp">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imgui.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imgui.cpp">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imgui_demo.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imgui_demo.cpp">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imgui_draw.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imgui_draw.cpp">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imgui_widgets.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imgui_widgets.cpp">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\OpenFrameworks\addons\ofxSimpleSerial-master\src\ofxSimpleSerial.cpp">
+		<ClCompile Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxSimpleSerial-master\src\ofxSimpleSerial.cpp">
 			<Filter>addons\ofxSimpleSerial-master\src</Filter>
 		</ClCompile>
 	</ItemGroup>
@@ -89,55 +89,55 @@
 		<ClInclude Include="src\ofApp.h">
 			<Filter>src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\BaseEngine.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\BaseEngine.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\BaseTheme.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\BaseTheme.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\DefaultTheme.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\DefaultTheme.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\EngineGLFW.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\EngineGLFW.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\EngineOpenGLES.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\EngineOpenGLES.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\EngineVk.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\EngineVk.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\Gui.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\Gui.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\imconfig.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\imconfig.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\ImHelpers.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\ImHelpers.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\ofxImGui.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\ofxImGui.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\src\ofxImGuiLoggerChannel.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\src\ofxImGuiLoggerChannel.h">
 			<Filter>addons\ofxImGui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imgui.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imgui.h">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imgui_internal.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imgui_internal.h">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imstb_rectpack.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imstb_rectpack.h">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imstb_textedit.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imstb_textedit.h">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxImGui\libs\imgui\src\imstb_truetype.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxImGui\libs\imgui\src\imstb_truetype.h">
 			<Filter>addons\ofxImGui\libs\imgui\src</Filter>
 		</ClInclude>
-		<ClInclude Include="..\..\..\OpenFrameworks\addons\ofxSimpleSerial-master\src\ofxSimpleSerial.h">
+		<ClInclude Include="..\..\..\of_v0.11.0_vs2017_release\addons\ofxSimpleSerial-master\src\ofxSimpleSerial.h">
 			<Filter>addons\ofxSimpleSerial-master\src</Filter>
 		</ClInclude>
 	</ItemGroup>
