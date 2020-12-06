@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxSimpleSerial.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,4 +21,21 @@ class ofApp : public ofBaseApp{
 
 		void parseSerial(string & message);
 		void logError(string message);
+  
+  
+        // Game stuff
+
+        // 2D vector to store the on-screen points location
+        vector<vector<int>> pointsArray;
+        vector<int> currentPoint;
+        
+        // Gui
+        ofxPanel gui;
+        ofxToggle _play;
+        ofxToggle _activateSlider;
+        ofxToggle _mode;
+        
+        // Slider ultrasonic distance
+        int _distance;
+        
 };

@@ -1,2 +1,2 @@
-ofxImGui
+ofxGui
 ofxSimpleSerial-master
