@@ -12,6 +12,11 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
   
+        void clearCanvas();
+        
+        //Called just before the application shuts down
+        void exit();
+  
         float lerp(float previous, float current, float percent);
 		
 		// gyroscope values
@@ -31,12 +36,14 @@ class ofApp : public ofBaseApp{
         // 2D vector to store the on-screen points location
         vector<DrawPoint> pointsArray;
         DrawPoint _currentPoint;
+        DrawPoint previousPoint;
         
         // Gui
         ofxPanel gui;
         ofxToggle _play;
+        ofxButton _clear;
         ofxToggle _activateSlider;
-        ofxToggle _mode;
+        
         
         // Slider ultrasonic distance
         int _distance;
