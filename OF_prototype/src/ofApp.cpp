@@ -57,7 +57,11 @@ void ofApp::draw() {
     // If the game is not set on pause, draw the points stored in the array
     if (_play) {
         for (int i = 0 ; i < pointsArray.size() ; i++) {
-            ofDrawCircle(pointsArray[i].x, pointsArray[i].y, pointsArray[i].radius);
+            // Smooth out difference between points
+            float currentPointX = lerp(pointsArray[i - 1].x, pointsArray[i].x, 0.2);
+            float currentPointY = lerp(pointsArray[i - 1].y, pointsArray[i].y, 0.2);
+            
+            ofDrawCircle(currentPointX, currentPointY, pointsArray[i].radius);
         }
     }
 
@@ -99,4 +103,10 @@ void ofApp::parseSerial(string & message) {
 
 void ofApp::logError(string message) {
 	cout << message << "\n";
+}
+
+//Linear Interpolation formula for "easing" between points (or smoothing data)
+float ofApp::lerp(float previous, float current, float percent)
+{
+	return (previous + percent * (current - previous));
 }

@@ -11,6 +11,8 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+  
+        float lerp(float previous, float current, float percent);
 		
 		// gyroscope values
 		int		_pitch;
