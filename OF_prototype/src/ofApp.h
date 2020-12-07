@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "../DrawPoint.h"
 #include "ofxSimpleSerial.h"
 #include "ofxGui.h"
 
@@ -26,8 +27,8 @@ class ofApp : public ofBaseApp{
         // Game stuff
 
         // 2D vector to store the on-screen points location
-        vector<vector<int>> pointsArray;
-        vector<int> currentPoint;
+        vector<DrawPoint> pointsArray;
+        DrawPoint _currentPoint;
         
         // Gui
         ofxPanel gui;

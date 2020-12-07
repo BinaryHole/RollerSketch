@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	// setup the serial port
-	_serial.setup("COM3", 115200);
+	_serial.setup("COM4", 115200);
 	_serial.startContinuousRead();
 	ofAddListener(_serial.NEW_MESSAGE, this, &ofApp::parseSerial);
 	_requestRead = false;
@@ -43,15 +43,12 @@ void ofApp::update() {
         float circleRadius = _distance;
  
         // Store current point
-        currentPoint.push_back(circleX);
-        currentPoint.push_back(circleY);
-        currentPoint.push_back(circleRadius);
+        DrawPoint currentPoint(circleX, circleY, circleRadius);
+        _currentPoint = currentPoint;
     
         // Add current point to points array
-        pointsArray.push_back(currentPoint);
-        
+        pointsArray.push_back(DrawPoint(circleX, circleY, circleRadius));
     }
-    
 }
 
 //--------------------------------------------------------------
@@ -60,7 +57,7 @@ void ofApp::draw() {
     // If the game is not set on pause, draw the points stored in the array
     if (_play) {
         for (int i = 0 ; i < pointsArray.size() ; i++) {
-            ofDrawCircle(pointsArray[i][1], pointsArray[i][2], pointsArray[i][3]);
+            ofDrawCircle(pointsArray[i].x, pointsArray[i].y, pointsArray[i].radius);
         }
     }
 
@@ -78,19 +75,22 @@ void ofApp::parseSerial(string & message) {
 	try {
         // Define what each value we get from serial is
         // Each value is separated by a comma
-		int pitch	         = ofToInt(ofSplitString(message, ",")[0]);
-		int roll	         = ofToInt(ofSplitString(message, ",")[1]);
-        bool playPause       = ofToBool(ofSplitString(message, ",")[2]);
-        bool activateSlider  = ofToBool(ofSplitString(message, ",")[3]);
-        bool mode            = ofToBool(ofSplitString(message, ",")[4]);
-        int distance         = ofToInt(ofSplitString(message, ",")[5]);
 
-		_pitch	            = pitch;
-		_roll	            = roll;
-        _play               = playPause;
-        _activateSlider     = activateSlider;
-        _mode               = mode;
-        _distance           = distance;
+        if (message != "Started.") {
+		    int pitch	         = ofToInt(ofSplitString(message, ",")[0]);
+		    int roll	         = ofToInt(ofSplitString(message, ",")[1]);
+            bool playPause       = ofToBool(ofSplitString(message, ",")[2]);
+            bool activateSlider  = ofToBool(ofSplitString(message, ",")[3]);
+            bool mode            = ofToBool(ofSplitString(message, ",")[4]);
+            int distance         = ofToInt(ofSplitString(message, ",")[5]);
+
+		    _pitch	            = pitch;
+		    _roll	            = roll;
+            _play               = playPause;
+            _activateSlider     = activateSlider;
+            _mode               = mode;
+            _distance           = distance;
+        }
 	}
 	catch (exception e) {
 		logError(e.what());
@@ -100,4 +100,3 @@ void ofApp::parseSerial(string & message) {
 void ofApp::logError(string message) {
 	cout << message << "\n";
 }
-
