@@ -7,6 +7,7 @@ public:
 	float	y;
 	float	radius;
 
+	DrawPoint();
 	DrawPoint(float x, float y, float radius);
 };
 
