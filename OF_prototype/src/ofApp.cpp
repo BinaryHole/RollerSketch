@@ -54,7 +54,7 @@ void ofApp::update() {
         
         // Only add this current point if it differentiates enough
         // from the previous point
-        if (-10 < (currentPoint.x - previousPoint.x) > 10 || -10 < (currentPoint.y - previousPoint.y) > 10) {
+        if (-10 > (currentPoint.x - previousPoint.x) > 10 || -10 < (currentPoint.y - previousPoint.y) > 10) {
             // Add current point to points array
             pointsArray.push_back(DrawPoint(circleX, circleY, circleRadius));
             
@@ -70,6 +70,7 @@ void ofApp::draw() {
 
     // If the game is not set on pause, draw the points stored in the array
     if (_play) {
+    cout << "play";
         for (int i = 0 ; i < pointsArray.size() ; i++) {
             // don't lerp on the first point
             if (i > 0) {
@@ -115,10 +116,25 @@ void ofApp::parseSerial(string & message) {
 
 		    _pitch	            = pitch;
 		    _roll	            = roll;
-            _play               = playPause;
             _activateSlider     = activateSlider;
-            //_clear              = clear;
             _distance           = distance;
+            
+            // Play and pause
+            bool button1Value = _play;
+            if (playPause && !button1Value) {
+                _play = !_play;
+            }
+            
+            // Clear canvas
+            if (clear) {
+                clearCanvas();
+            }
+            
+            // Activate slider
+            bool currentButton3Value = activateSlider;
+            if (button3Value && !activateSlider) {
+                activateSlider = !activateSlider;
+            }
         }
 	}
 	catch (exception e) {
@@ -142,7 +158,6 @@ float ofApp::lerp(float previous, float current, float percent)
 // Clears the pointsArray
 void ofApp::clearCanvas() {
     pointsArray.clear();
-    cout << "Clear Canvas";
 }
 
 

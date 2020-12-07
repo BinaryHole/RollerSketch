@@ -5,7 +5,7 @@
 #include "ofxSimpleSerial.h"
 #include "ofxGui.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
 
 	public:
 		void setup();
@@ -44,8 +44,24 @@ class ofApp : public ofBaseApp{
         ofxButton _clear;
         ofxToggle _activateSlider;
         
-        
         // Slider ultrasonic distance
         int _distance;
+        
+        // Buttons
+        // Button 1: play/pause
+        bool button1Value = false;
+        
+        // Button 2: Clear canvas
+        // Probably don't need these
+        bool button2Value = false;
+        bool clearCanvasBool  = false;
+        
+        // Button 3: Activate slider
+        bool button3Value = false;
+        bool activateSlider = false;
+        
+        // slider
+        int sliderValue     = 0;
+        int brushRadius     = 0;
         
 };
