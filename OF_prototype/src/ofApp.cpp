@@ -48,6 +48,7 @@ void ofApp::update() {
     
         // Add current point to points array
         pointsArray.push_back(DrawPoint(circleX, circleY, circleRadius));
+        //cout << pointsArray.size() << "\n";
     }
 }
 
@@ -57,11 +58,14 @@ void ofApp::draw() {
     // If the game is not set on pause, draw the points stored in the array
     if (_play) {
         for (int i = 0 ; i < pointsArray.size() ; i++) {
-            // Smooth out difference between points
-            float currentPointX = lerp(pointsArray[i - 1].x, pointsArray[i].x, 0.2);
-            float currentPointY = lerp(pointsArray[i - 1].y, pointsArray[i].y, 0.2);
+            // don't lerp on the first point
+            if (i > 0) {
+                // Smooth out difference between points
+                float currentPointX = lerp(pointsArray[i - 1].x, pointsArray[i].x, 0.2);
+                float currentPointY = lerp(pointsArray[i - 1].y, pointsArray[i].y, 0.2);
             
-            ofDrawCircle(currentPointX, currentPointY, pointsArray[i].radius);
+                ofDrawCircle(currentPointX, currentPointY, pointsArray[i].radius);
+            }
         }
     }
 
