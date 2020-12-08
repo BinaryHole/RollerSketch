@@ -6,7 +6,7 @@ void ofApp::setup(){
     ofSetFrameRate(60);
 
 	// setup the serial port
-	_serial.setup("COM4", 115200);
+	_serial.setup("COM3", 115200);
 	_serial.startContinuousRead();
 	ofAddListener(_serial.NEW_MESSAGE, this, &ofApp::parseSerial);
 	_requestRead = false;
@@ -15,25 +15,8 @@ void ofApp::setup(){
 	_pitch	= 0;
 	_roll	= 0;
  
-    // Initialize game values, everything to false
-    _play = 0;
-    _activateSlider = 0;
-    //_clear = 0;
-    
-    // Initialize ultrasonic sensor value
-    _brushRadius = 0;
-    
     //Initialize a fake previous point
     DrawPoint previousPoint(0.0f, 0.0f, 0.0f);
-    
-    // GUI setup
-    gui.setup();
-    gui.add(_play.setup("Play", false));
-    gui.add(_activateSlider.setup("Activate slider", false));
-    gui.add(_clear.setup("Clear canvas"));
-    
-    // Event listener
-    _clear.addListener(this, &ofApp::clearCanvas);
 }
 
 //--------------------------------------------------------------
@@ -42,46 +25,46 @@ void ofApp::update() {
 		_serial.sendRequest();
 		_requestRead = false;
 	}
+
+    // Calculate the cursor position
+    float cursorX = ofMap(_pitch, 100, 899, 0, ofGetViewportWidth());
+    float cursorY = ofMap(_roll, 100, 899, 0, ofGetViewportHeight());
+
+    // update the cursor
+    _cursor = DrawPoint(cursorX, cursorY, _brushRadius);
     
-    // If the game is not set on pause, add the current cursor position to an array
-    if (_play) {
-    
-        // Get mapped position of the cursor
-        float circleX = ofMap(_pitch, 0, 999, 0, ofGetViewportWidth());
-        float circleY = ofMap(_roll, 0, 999, 0, ofGetViewportHeight());
-        float circleRadius = _brushRadius;
- 
-        // Store current point
-        DrawPoint currentPoint(circleX, circleY, circleRadius);
-        _currentPoint = currentPoint;
-        
-        // Only add this current point if it differentiates enough
-        // from the previous point
-        if (-10 > (currentPoint.x - previousPoint.x) > 10 || -10 < (currentPoint.y - previousPoint.y) > 10) {
+    // If the game is not paused, add the current cursor position to an array
+    if (!_isPaused) {
+        // calculate the current interpolated point
+        float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.1);
+        float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.1);
+        DrawPoint interpolatedPoint = DrawPoint(interpolatedX, interpolatedY, _brushRadius);
+
+        // Only add this current point if it differentiates enough from the previous point
+        if (abs(interpolatedPoint.x - _previousPoint.x) >= _previousPoint.radius
+                || abs(interpolatedPoint.y - _previousPoint.y) >= _previousPoint.radius) {
             // Add current point to points array
-            pointsArray.push_back(DrawPoint(circleX, circleY, circleRadius));
+            _pointsArray.push_back(interpolatedPoint);
             
-            //Make this point the previous point
-            previousPoint = currentPoint;
+            // Make this point the previous point
+            _previousPoint = interpolatedPoint;
         }
-        
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 
+    // draw cursor
+
+
     // If the game is not set on pause, draw the points stored in the array
-    if (_play) {
-        for (int i = 0 ; i < pointsArray.size() ; i++) {
+    if (!_isPaused) {
+        for (int i = 0 ; i < _pointsArray.size() ; i++) {
             // don't lerp on the first point
             if (i > 0) {
-                // Smooth out difference between points
-                float currentPointX = lerp(pointsArray[i - 1].x, pointsArray[i].x, 0.2);
-                float currentPointY = lerp(pointsArray[i - 1].y, pointsArray[i].y, 0.2);
-                
-                //Finally, draw point
-                ofDrawCircle(currentPointX, currentPointY, pointsArray[i].radius);
+                // Draw the next point in the array
+                ofDrawCircle(_pointsArray[i].x, _pointsArray[i].y, _pointsArray[i].radius);
             }
         }
     }
@@ -89,18 +72,14 @@ void ofApp::draw() {
     // Debug
 	ofDrawBitmapString("Pitch: " + ofToString(_pitch), 5, 20);
 	ofDrawBitmapString("Roll: " + ofToString(_roll), 5, 40);
-	// ofDrawBitmapString("Radius: " + ofToString(circleRadius), 5, 60);
- 
-    // GUI draw
-    gui.draw();
-    
+	ofDrawBitmapString("Radius: " + ofToString(_brushRadius), 5, 60);
+    ofDrawBitmapString("IsPaused: " + ofToString(_isPaused), 5, 80);
+    ofDrawBitmapString("IsClearing: " + ofToString(_button2Value), 5, 100);
+    ofDrawBitmapString("IsSliderActive: " + ofToString(_isSliderActive), 5, 120);
 }
 
-// void exit();
 // Called right before program shuts down
-// Removes event listeners
 void ofApp::exit() {
-    _clear.removeListener(this, &ofApp::clearCanvas);
 }
 
 void ofApp::parseSerial(string & message) {
@@ -123,30 +102,30 @@ void ofApp::parseSerial(string & message) {
             // check if button 3 (enable slider button) was just pressed
             if (currentButton3Val && !_button3Value) {
                 // toggle activate slider
-                //_activateSlider     = !_activateSlider;
+                _isSliderActive     = !_isSliderActive;
             }
             // update button 3 value
             _button3Value = currentButton3Val;
-            //cout << currentButton3Val << "\n";
 
             // update slider value
             _sliderValue = currentSliderVal;
 
             // update brush radius if the slider is currently enabled
-            if (activateSlider) {
+            if (_isSliderActive) {
                 _brushRadius = _sliderValue;
             }
 
             // check if button 1 (play/pause button) was just pressed
             if (currentButton1Val && !_button1Value) {
                 // toggle play
-                //_play = !_play;
+                _isPaused = !_isPaused;
             }
             // update button 1 value
             _button1Value = currentButton1Val;
             
-            // Clear canvas
-            if (currentButton2Val) {
+            // check if button 2 (clear canvas) was just pressed
+            if (currentButton2Val && !_button2Value) {
+                // clear the canvas
                 clearCanvas();
             }
         }
@@ -171,7 +150,7 @@ float ofApp::lerp(float previous, float current, float percent)
 // or uses the GUI
 // Clears the pointsArray
 void ofApp::clearCanvas() {
-    pointsArray.clear();
+    _pointsArray.clear();
 }
 
 

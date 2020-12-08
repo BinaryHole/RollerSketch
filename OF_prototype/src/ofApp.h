@@ -34,26 +34,24 @@ class ofApp : public ofBaseApp {
         // Game stuff
 
         // 2D vector to store the on-screen points location
-        vector<DrawPoint> pointsArray;
-        DrawPoint _currentPoint;
-        DrawPoint previousPoint;
-        
-        // Gui
-        ofxPanel gui;
-        ofxToggle _play;
-        ofxButton _clear;
-        ofxToggle _activateSlider;
+        vector<DrawPoint> _pointsArray;
+        DrawPoint _cursor;
+        DrawPoint _previousPoint;
         
         // Buttons
         // Button 1: play/pause
-        bool _button1Value = false;
+        bool _button1Value  = false;
+        bool _isPaused      = false;
         
+        // Button 2: Clear Canvas
+        bool _button2Value  = false;
+
         // Button 3: Activate slider
-        bool _button3Value = false;
-        bool activateSlider = false;
+        bool _button3Value      = false;
+        bool _isSliderActive    = false;
         
         // Slider values (ultrasonic sensor)
         int _sliderValue     = 0;
-        int _brushRadius     = 0;
+        int _brushRadius     = 10;
         
 };
