@@ -44,24 +44,16 @@ class ofApp : public ofBaseApp {
         ofxButton _clear;
         ofxToggle _activateSlider;
         
-        // Slider ultrasonic distance
-        int _distance;
-        
         // Buttons
         // Button 1: play/pause
-        bool button1Value = false;
-        
-        // Button 2: Clear canvas
-        // Probably don't need these
-        bool button2Value = false;
-        bool clearCanvasBool  = false;
+        bool _button1Value = false;
         
         // Button 3: Activate slider
-        bool button3Value = false;
+        bool _button3Value = false;
         bool activateSlider = false;
         
-        // slider
-        int sliderValue     = 0;
-        int brushRadius     = 0;
+        // Slider values (ultrasonic sensor)
+        int _sliderValue     = 0;
+        int _brushRadius     = 0;
         
 };

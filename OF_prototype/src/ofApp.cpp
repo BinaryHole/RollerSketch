@@ -2,6 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    // set framerate 
+    ofSetFrameRate(60);
+
 	// setup the serial port
 	_serial.setup("COM4", 115200);
 	_serial.startContinuousRead();
@@ -18,7 +21,7 @@ void ofApp::setup(){
     //_clear = 0;
     
     // Initialize ultrasonic sensor value
-    _distance = 0;
+    _brushRadius = 0;
     
     //Initialize a fake previous point
     DrawPoint previousPoint(0.0f, 0.0f, 0.0f);
@@ -46,7 +49,7 @@ void ofApp::update() {
         // Get mapped position of the cursor
         float circleX = ofMap(_pitch, 0, 999, 0, ofGetViewportWidth());
         float circleY = ofMap(_roll, 0, 999, 0, ofGetViewportHeight());
-        float circleRadius = _distance;
+        float circleRadius = _brushRadius;
  
         // Store current point
         DrawPoint currentPoint(circleX, circleY, circleRadius);
@@ -70,7 +73,6 @@ void ofApp::draw() {
 
     // If the game is not set on pause, draw the points stored in the array
     if (_play) {
-    cout << "play";
         for (int i = 0 ; i < pointsArray.size() ; i++) {
             // don't lerp on the first point
             if (i > 0) {
@@ -107,33 +109,45 @@ void ofApp::parseSerial(string & message) {
         // Each value is separated by a comma
 
         if (message != "Started.") {
-		    int pitch	         = ofToInt(ofSplitString(message, ",")[0]);
-		    int roll	         = ofToInt(ofSplitString(message, ",")[1]);
-            bool playPause       = ofToBool(ofSplitString(message, ",")[2]);
-            bool activateSlider  = ofToBool(ofSplitString(message, ",")[3]);
-            bool clear           = ofToBool(ofSplitString(message, ",")[4]);
-            int distance         = ofToInt(ofSplitString(message, ",")[5]);
+		    int pitch	            = ofToInt(ofSplitString(message, ",")[0]);
+		    int roll	            = ofToInt(ofSplitString(message, ",")[1]);
+            bool currentButton1Val  = ofToBool(ofSplitString(message, ",")[2]);
+            bool currentButton2Val  = ofToBool(ofSplitString(message, ",")[3]);
+            bool currentButton3Val  = ofToBool(ofSplitString(message, ",")[4]);
+            int currentSliderVal    = ofToInt(ofSplitString(message, ",")[5]);
 
+            // set pitch and roll
 		    _pitch	            = pitch;
 		    _roll	            = roll;
-            _activateSlider     = activateSlider;
-            _distance           = distance;
-            
-            // Play and pause
-            bool button1Value = _play;
-            if (playPause && !button1Value) {
-                _play = !_play;
+
+            // check if button 3 (enable slider button) was just pressed
+            if (currentButton3Val && !_button3Value) {
+                // toggle activate slider
+                //_activateSlider     = !_activateSlider;
             }
+            // update button 3 value
+            _button3Value = currentButton3Val;
+            //cout << currentButton3Val << "\n";
+
+            // update slider value
+            _sliderValue = currentSliderVal;
+
+            // update brush radius if the slider is currently enabled
+            if (activateSlider) {
+                _brushRadius = _sliderValue;
+            }
+
+            // check if button 1 (play/pause button) was just pressed
+            if (currentButton1Val && !_button1Value) {
+                // toggle play
+                //_play = !_play;
+            }
+            // update button 1 value
+            _button1Value = currentButton1Val;
             
             // Clear canvas
-            if (clear) {
+            if (currentButton2Val) {
                 clearCanvas();
-            }
-            
-            // Activate slider
-            bool currentButton3Value = activateSlider;
-            if (button3Value && !activateSlider) {
-                activateSlider = !activateSlider;
             }
         }
 	}
