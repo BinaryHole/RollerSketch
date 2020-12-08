@@ -56,7 +56,11 @@ void ofApp::update() {
 void ofApp::draw() {
 
     // draw cursor
-
+    ofNoFill();
+    ofSetLineWidth(4);
+    ofDrawCircle(_cursor.x, _cursor.y, 20);
+    
+    ofFill();
 
     // If the game is not set on pause, draw the points stored in the array
     if (!_isPaused) {
