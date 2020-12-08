@@ -21,8 +21,8 @@ void ofApp::update() {
 	}
 
     // Calculate the cursor position
-    float cursorX = ofMap(_pitch, 0, 255, 0, ofGetViewportWidth());
-    float cursorY = ofMap(_roll, 0, 255, 0, ofGetViewportHeight());
+    float cursorX = ofMap(_pitch, 50, 205, 0, ofGetViewportWidth());
+    float cursorY = ofMap(_roll, 50, 205, 0, ofGetViewportHeight());
 
     // update the cursor
     _cursor = DrawPoint(cursorX, cursorY, _brushRadius);
@@ -63,8 +63,8 @@ void ofApp::draw() {
     ofSetLineWidth(4);
     
     // Smooth out cursor
-    float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.2);
-    float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.2);
+    float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.25);
+    float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.25);
     // Draw cursor
     ofDrawCircle(interpolatedX, interpolatedY, _brushRadius + 20);
     
