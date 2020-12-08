@@ -36,8 +36,8 @@ void ofApp::update() {
     // If the game is not paused, add the current cursor position to an array
     if (!_isPaused) {
         // calculate the current interpolated point
-        float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.1);
-        float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.1);
+        float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.01);
+        float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.01);
         DrawPoint interpolatedPoint = DrawPoint(interpolatedX, interpolatedY, _brushRadius);
 
         // Only add this current point if it differentiates enough from the previous point
