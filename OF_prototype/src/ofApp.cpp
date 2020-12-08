@@ -59,10 +59,14 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 
-    // draw cursor
     ofNoFill();
     ofSetLineWidth(4);
-    ofDrawCircle(_cursor.x, _cursor.y, 20);
+    
+    // Smooth out cursor
+    float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.2);
+    float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.2);
+    // Draw cursor
+    ofDrawCircle(interpolatedX, interpolatedY, _brushRadius + 20);
     
     ofFill();
 
