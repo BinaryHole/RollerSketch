@@ -23,12 +23,19 @@ const int BUTTON_3 = 2;
 
 // define a radio packet's data
 struct RadioPacket {
-  uint16_t pitch;
-  uint16_t roll;
+  uint8_t pitch;
+  uint8_t roll;
 };
 
 // declare global RadioData variable
 RadioPacket _radioData;
+
+// declare pitch and roll values
+int _pitch = -1;
+int _roll  = -1;
+
+// livezone is used to discard outlier pitch and roll values
+unsigned int _livezoneValue = 50;
 
 // declare global button values
 int button1Val = 0;
@@ -53,18 +60,17 @@ void setup() {
 }
 
 void loop() {
-  // read the incoming radio data
-  readRadio();
+  while (_radio.hasData()) {
+    _radio.readData(&_radioData);
 
-  // read the button values
-  readButtons();
+    _pitch = _radioData.pitch;
+    _roll = _radioData.roll;
 
-  // read the ultrasonic distance value
-  readUsSensor();
-
-  // print the radio data to the serial port
-  sendDataToSerial();
-  //forceDataToSerial();
+    readButtons();
+    readUsSensor();
+    //forceDataToSerial();
+    sendDataToSerial();
+  }
 }
 
 void readButtons() {
@@ -85,13 +91,20 @@ void readUsSensor() {
 void readRadio() {
   while (_radio.hasData()) {
     _radio.readData(&_radioData);
+
+    _pitch = _radioData.pitch;
+    _roll = _radioData.roll;
+
+    readButtons();
+    readUsSensor();
+    forceDataToSerial();
   }
 }
 
 void forceDataToSerial() {
-  Serial.print(_radioData.pitch);
+  Serial.print(_pitch);
   Serial.print(",");
-  Serial.print(_radioData.roll);
+  Serial.print(_roll);
   Serial.print(",");
   Serial.print(button1Val);
   Serial.print(",");
@@ -106,9 +119,9 @@ void forceDataToSerial() {
 
 void sendDataToSerial() {
   if (Serial.available() > 0 && Serial.read() == 'r') {
-    Serial.print(_radioData.pitch);
+    Serial.print(_pitch);
     Serial.print(",");
-    Serial.print(_radioData.roll);
+    Serial.print(_roll);
     Serial.print(",");
     Serial.print(button1Val);
     Serial.print(",");

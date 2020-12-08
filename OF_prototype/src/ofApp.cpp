@@ -21,35 +21,38 @@ void ofApp::update() {
 	}
 
     // Calculate the cursor position
-    float cursorX = ofMap(_pitch, 100, 899, 0, ofGetViewportWidth());
-    float cursorY = ofMap(_roll, 100, 899, 0, ofGetViewportHeight());
+    float cursorX = ofMap(_pitch, 0, 255, 0, ofGetViewportWidth());
+    float cursorY = ofMap(_roll, 0, 255, 0, ofGetViewportHeight());
 
     // update the cursor
     _cursor = DrawPoint(cursorX, cursorY, _brushRadius);
     
-    // If the game is not paused, add the current cursor position to an array
-    if (!_isPaused) {
 
-        // if this is the first point being drawn, create a new previous point
-        if (_pointsArray.size() == 0) {
-            _previousPoint = DrawPoint(cursorX, cursorY, _brushRadius);
+    // if this is the first point being drawn, create a new previous point
+    if (_pointsArray.size() == 0) {
+        _previousPoint = DrawPoint(cursorX, cursorY, _brushRadius);
+            
+        // If the game is not paused, add the current cursor position to an array
+        if (!_isPaused) {
             _pointsArray.push_back(_previousPoint);
         }
+    }
 
-        // Only add this current point if it differentiates enough from the previous point
-        else if (abs(_previousPoint.x - _cursor.x) >= _previousPoint.radius
-                || abs(_previousPoint.y - _cursor.y) >= _previousPoint.radius) {
-            // calculate the current interpolated point
-            float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.05);
-            float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.05);
-            DrawPoint interpolatedPoint = DrawPoint(interpolatedX, interpolatedY, _brushRadius);
+    // Only add this current point if it differentiates enough from the previous point
+    else if (abs(_previousPoint.x - _cursor.x) >= _previousPoint.radius
+            || abs(_previousPoint.y - _cursor.y) >= _previousPoint.radius) {
+        // calculate the current interpolated point
+        float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.05);
+        float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.05);
+        DrawPoint interpolatedPoint = DrawPoint(interpolatedX, interpolatedY, _brushRadius);
 
-            // Add current point to points array
+        // If the game is now paused, add current point to points array
+        if (!_isPaused) {
             _pointsArray.push_back(interpolatedPoint);
-            
-            // Make this point the previous point
-            _previousPoint = interpolatedPoint;
         }
+            
+        // Make this point the previous point
+        _previousPoint = interpolatedPoint;
     }
 }
 
@@ -63,15 +66,9 @@ void ofApp::draw() {
     
     ofFill();
 
-    // If the game is not set on pause, draw the points stored in the array
-    if (!_isPaused) {
-        for (int i = 0 ; i < _pointsArray.size() ; i++) {
-            // don't lerp on the first point
-            if (i > 0) {
-                // Draw the next point in the array
-                ofDrawCircle(_pointsArray[i].x, _pointsArray[i].y, _pointsArray[i].radius);
-            }
-        }
+    for (int i = 0 ; i < _pointsArray.size() ; i++) {
+        // Draw the next point in the array
+        ofDrawCircle(_pointsArray[i].x, _pointsArray[i].y, _pointsArray[i].radius);
     }
 
     // Debug
@@ -91,8 +88,9 @@ void ofApp::parseSerial(string & message) {
 	try {
         // Define what each value we get from serial is
         // Each value is separated by a comma
+        //cout << message << "\n";
 
-        if (message != "Started.") {
+        if (message != "Started." && ofSplitString(message, ",").size() == 6) {
 		    int pitch	            = ofToInt(ofSplitString(message, ",")[0]);
 		    int roll	            = ofToInt(ofSplitString(message, ",")[1]);
             bool currentButton1Val  = ofToBool(ofSplitString(message, ",")[2]);
