@@ -17,9 +17,9 @@ const int CE        = 9;
 const int CSN       = 10;
 
 // define button inputs
-const int BUTTON_1 = 2;
+const int BUTTON_1 = 4;
 const int BUTTON_2 = 3;
-const int BUTTON_3 = 4;
+const int BUTTON_3 = 2;
 
 // define a radio packet's data
 struct RadioPacket {
@@ -68,9 +68,9 @@ void loop() {
 }
 
 void readButtons() {
-  button1Val = digitalRead(BUTTON_1);
-  button2Val = digitalRead(BUTTON_2);
-  button3Val = digitalRead(BUTTON_3);
+  button1Val = !digitalRead(BUTTON_1);
+  button2Val = !digitalRead(BUTTON_2);
+  button3Val = !digitalRead(BUTTON_3);
 }
 
 void readUsSensor() {
