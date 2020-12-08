@@ -20,8 +20,8 @@ class ofApp : public ofBaseApp {
         float lerp(float previous, float current, float percent);
 		
 		// gyroscope values
-		int		_pitch;
-		int		_roll;
+		int		_pitch = 500;
+		int		_roll = 500;
 
 		// serial stuff
 		ofxSimpleSerial _serial;

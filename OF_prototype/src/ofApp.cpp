@@ -2,21 +2,15 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    // set framerate 
+    // set ofApp settings
     ofSetFrameRate(60);
+    ofSetFullscreen(false);
 
 	// setup the serial port
 	_serial.setup("COM3", 115200);
 	_serial.startContinuousRead();
 	ofAddListener(_serial.NEW_MESSAGE, this, &ofApp::parseSerial);
 	_requestRead = false;
-
-	// initialize gyro values
-	_pitch	= 0;
-	_roll	= 0;
- 
-    //Initialize a fake previous point
-    DrawPoint previousPoint(0.0f, 0.0f, 0.0f);
 }
 
 //--------------------------------------------------------------
@@ -35,14 +29,21 @@ void ofApp::update() {
     
     // If the game is not paused, add the current cursor position to an array
     if (!_isPaused) {
-        // calculate the current interpolated point
-        float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.01);
-        float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.01);
-        DrawPoint interpolatedPoint = DrawPoint(interpolatedX, interpolatedY, _brushRadius);
+
+        // if this is the first point being drawn, create a new previous point
+        if (_pointsArray.size() == 0) {
+            _previousPoint = DrawPoint(cursorX, cursorY, _brushRadius);
+            _pointsArray.push_back(_previousPoint);
+        }
 
         // Only add this current point if it differentiates enough from the previous point
-        if (abs(interpolatedPoint.x - _previousPoint.x) >= _previousPoint.radius
-                || abs(interpolatedPoint.y - _previousPoint.y) >= _previousPoint.radius) {
+        else if (abs(_previousPoint.x - _cursor.x) >= _previousPoint.radius
+                || abs(_previousPoint.y - _cursor.y) >= _previousPoint.radius) {
+            // calculate the current interpolated point
+            float interpolatedX = ofLerp(_previousPoint.x, _cursor.x, 0.05);
+            float interpolatedY = ofLerp(_previousPoint.y, _cursor.y, 0.05);
+            DrawPoint interpolatedPoint = DrawPoint(interpolatedX, interpolatedY, _brushRadius);
+
             // Add current point to points array
             _pointsArray.push_back(interpolatedPoint);
             
